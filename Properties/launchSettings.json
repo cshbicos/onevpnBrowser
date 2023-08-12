@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "onevpnBrowser": {
+      "commandName": "Project",
+      "commandLineArgs": "https://ciscovpn.com webvpn"
+    }
+  }
+}
