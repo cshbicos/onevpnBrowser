@@ -2,6 +2,7 @@
 
 namespace onevpnBrowser
 {
+
     class Program
     {
         [STAThread]
@@ -9,7 +10,7 @@ namespace onevpnBrowser
         {
             try
             {
-                if (args.Length != 2)
+                if (args.Length < 2)
                 {
                     Console.WriteLine("Call with URL and cookie name");
                     return;
@@ -24,7 +25,15 @@ namespace onevpnBrowser
                     return;
                 }
 
-                RunApplication(url, args[1]);
+                bool closeAfterCookie = true;
+                if (args.Length > 2)
+                {
+                    if (args[2].Equals("--no-close"))
+                        closeAfterCookie = false;
+
+                }
+
+                RunApplication(url, args[1], closeAfterCookie);
             }
             catch (UriFormatException ex)
             {
@@ -36,9 +45,9 @@ namespace onevpnBrowser
             }
         }
 
-        private static void RunApplication(Uri url, string cookieName)
+        private static void RunApplication(Uri url, string cookieName, bool closeAfterCookie)
         {
-            MainWindow wnd = new MainWindow(url, cookieName);
+            MainWindow wnd = new MainWindow(url, cookieName, closeAfterCookie);
             var application = new System.Windows.Application();
             application.Run(wnd);
         }
